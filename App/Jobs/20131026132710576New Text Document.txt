@@ -1,0 +1,28 @@
+SELECT * from MonthlyEarningnDeduction where EmployeeId=2 ANd  Month=11
+
+SELECT * from MonthlyAttendance where EmployeeId='1'
+
+UPDATE MonthlyEarningnDeduction set Year='2013'
+
+
+Select * from EmployeeMaster
+Select * from EmployeeJobDetails
+Select * from EmployeeQualificationDetails
+Select * from EmployeeEarningDetails
+Select * from EmployeeDeductionDetails
+Select * from EmployeeLeaveDetails
+Select * from EmployeeLeftDetails
+Select * from EmployeeOtherDetails
+Select * from MonthlyAttendance
+Select * from MonthlyEarningnDeduction
+
+Truncate Table EmployeeMaster
+Truncate Table EmployeeJobDetails
+Truncate Table EmployeeQualificationDetails
+Truncate Table EmployeeEarningDetails
+Truncate Table EmployeeDeductionDetails
+Truncate Table EmployeeLeaveDetails
+Truncate Table EmployeeLeftDetails
+Truncate Table EmployeeOtherDetails
+Truncate Table MonthlyAttendance
+Truncate Table MonthlyEarningnDeduction

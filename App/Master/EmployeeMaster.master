@@ -1,0 +1,118 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="EmployeeMaster.master.cs"
+    Inherits="EmployeeMaster" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head id="Head1" runat="server">
+    <title>HRMS</title>
+    <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
+    <link href="../CSS3%20Menu_files/css3menu1/Admin.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" language="javascript">
+        javascript: window.history.forward(-1);
+    </script>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="Form" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
+    <div>
+        <div class="header">
+            <div class="title" style="padding-left: 10px;">
+                <asp:Image ID="imgPage" runat="server" ImageUrl="~/Images/logo.jpg" />
+                <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/Hrms.png" />
+            </div>
+            <div align="right" style="padding-top: 40px; padding-right: 15px;">
+                <strong>
+                    <asp:Label ID="lblWelcome" runat="server" Text="Welcome" CssClass="Label"></asp:Label>&nbsp;
+                    <asp:Label ID="lblLoggedUserName" runat="server" Text="" CssClass="Label"></asp:Label></strong>
+                &nbsp;
+                <asp:HyperLink ID="pLogOut" runat="server" Text="LogOut" NavigateUrl="~/Pages/Admin/frmLogOut.aspx"
+                    CssClass="Label"></asp:HyperLink>
+            </div>
+            <div class="clear hideSkiplink">
+                <ul id="Ul2">
+                    <li style="width: 10%;"><a href="../Employee/index.aspx">Home</a></li>
+                    <li style="width: 10%;"><a href="#">Employee</a>
+                        <ul>
+                            <li style="width: 187px;"><a href="../Employee/frmEmployee.aspx">Profile</a></li>
+                            <li style="width: 187px;"><a href="../Employee/frmAttendanceSummary.aspx">Attendence Summary</a></li>
+                            <li style="width: 187px;"><a href="../Employee/frmReimbursement.aspx">ReImbursement</a></li>
+
+                        </ul>
+                    </li>
+                    <li style="width: 10%;"><a href="#">Attendence</a>
+                        <ul>
+                            <li style="width: 187px;"><a href="../Employee/ListMonthlyAttendance.aspx">Monthly Attendence</a></li>
+                           <li style="width: 187px;"><a href="../Employee/frmOutOfOfficeAttendanceRegister.aspx">Out of office Attendance</a></li>
+                           <li style="width: 187px;"><a href="../Employee/OutOfOfficeAttendanceList4Employee.aspx">Out of office Approval</a></li>
+                        </ul>
+                    </li>
+                    <li style="width: 10%;"><a href="#">Pay Slip</a>
+                        <ul>
+                            <li style="width: 180px;"><a href="../Employee/frmEmployeePaymentofWages.aspx">Pay Slip</a></li>
+                            <li style="width: 180px;"><a href="../Employee/frmTaxCalculator.aspx">TAX Calculator</a></li>
+                        </ul>
+                    </li>
+                    <li style="width: 10%;"><a href="#">Recruitment</a>
+                        <ul>
+                            <li style="width: 187px;"><a href="../Employee/Requitment-Registration.aspx">Job Application</a></li>
+                                       <li style="width: 187px;"><a href="../Employee/frmReRegistrationPrint.aspx">Print Registration</a></li>
+                        </ul>
+                    </li>
+                    <li style="width: 10%;"><a href="#">Leaves Application</a>
+                        <ul>
+                            <li style="width: 187px;"><a href="../Employee/ListHolidayMaster.aspx">Leave Calender</a></li>
+                            <%--<li style="width: 187px;"><a href="../Admin/frmLeaveApplication.aspx">Leave Application</a></li>
+                            <li style="width: 187px;"><a href="#">Leave Pending Queue</a></li>--%>
+                        </ul>
+                    </li>
+                    <li style="width: 10%;"><a href="#">Loan Applocation</a>
+                        <ul>
+                            <li style="width: 187px;"><a href="../Employee/ListLoaneApplication.aspx">List of Loans</a></li>
+                            <li style="width: 187px;"><a href="../Employee/frmLoaneApplication.aspx">Loan Application</a></li>
+                        </ul>
+                    </li>
+                    <li style="width: 10%;"><a href="#">Training Details</a>
+                        <ul>
+                            <li style="width: 195px;"><a href="../Employee/frmViewTrainingDetail.aspx">Employee Trainings</a></li>
+                            <li style="width: 195px;"><a href="#">Training Events</a></li>
+                        </ul>
+                    </li>
+                    <li style="width: 10%;"><a href="#">Announcements</a>
+                        <ul>
+                            <li style="width: 197px;"><a href="#">Meeting Announcement</a></li>
+                            <li style="width: 197px;"><a href="../Employee/frmNotice.aspx">Circular Details</a></li>
+                        </ul>
+                    </li>
+                    <li style="width: 10%;"><a href="#">Change Password</a>
+                        <ul>
+                            <li style="width: 180px;"><a href="../Employee/ChangePassword.aspx">Change Password</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div style="clear: both;">
+        </div>
+        <div class="bg">
+            <div class="main">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="footer">
+        <p>
+            <hr style="width: 100%;" />
+            <asp:Label ID="Label3" runat="server" CssClass="Label" Text="© BECIL-Broadcast Engineering Consultants India Ltd."></asp:Label>
+            <%-- <br />
+            <asp:Label ID="lblFooter" runat="server" CssClass="Label" Text="Designed & Developed by"></asp:Label>&nbsp;<a href="http://www.vision360.co.in">Vision360 IT Consulting</a>--%>
+        </p>
+    </div>
+    </form>
+</body>
+</html>
