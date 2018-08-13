@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F8DC5E63-6195-47BD-9B63-A371C4B49737}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HRMS_Class</RootNamespace>
+    <AssemblyName>HRMS_Class</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ErrorHandler">
+      <HintPath>..\..\ErrorHandler\ErrorHandler\bin\Debug\ErrorHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="HRMS_Connection, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\HRMS_Connection\HRMS_Connection\bin\Debug\HRMS_Connection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdvertisemetnMaster.cs" />
+    <Compile Include="AdvertisemetnMasterManager.cs" />
+    <Compile Include="AllowanceMaster.cs" />
+    <Compile Include="AllowanceMasterManager.cs" />
+    <Compile Include="BindComboMasterManager.cs" />
+    <Compile Include="CallLetterMaster.cs" />
+    <Compile Include="CallLetterMasterManager.cs" />
+    <Compile Include="ChangePassword.cs" />
+    <Compile Include="ChangePasswordManager.cs" />
+    <Compile Include="ChartMasterManager.cs" />
+    <Compile Include="CircularMaster.cs" />
+    <Compile Include="CircularMasterManager.cs" />
+    <Compile Include="clsConvert.cs" />
+    <Compile Include="ConvertMasterManager.cs" />
+    <Compile Include="BulkInsertManager.cs" />
+    <Compile Include="MonthlyAttendanceRegister.cs" />
+    <Compile Include="MonthlyAttendanceRegisterManager.cs" />
+    <Compile Include="EducationMaster.cs" />
+    <Compile Include="EducationMasterManager.cs" />
+    <Compile Include="ExperienceMaster.cs" />
+    <Compile Include="ExperienceMasterManager.cs" />
+    <Compile Include="LanguageMaster.cs" />
+    <Compile Include="LanguageMasterManager.cs" />
+    <Compile Include="OutOfOfficeAttendanceMaster.cs" />
+    <Compile Include="OutOfOfficeAttendanceMasterManager.cs" />
+    <Compile Include="PostDetailMaster.cs" />
+    <Compile Include="PostDetailMasterManager.cs" />
+    <Compile Include="PostMaster.cs" />
+    <Compile Include="PostMasterManager.cs" />
+    <Compile Include="PostQEDetail.cs" />
+    <Compile Include="PostQEDetailManager.cs" />
+    <Compile Include="ProfessionalEducationMaster.cs" />
+    <Compile Include="ProfessionalEducationMasterManager.cs" />
+    <Compile Include="ReferencesMaster.cs" />
+    <Compile Include="ReferencesMasterManager.cs" />
+    <Compile Include="RequitmentRegistrationMaster.cs" />
+    <Compile Include="RequitmentRegistrationMasterManager.cs" />
+    <Compile Include="SubUnitMaster.cs" />
+    <Compile Include="SubUnitMasterManager.cs" />
+    <Compile Include="TaxCalculationMaster4DeductionManager.cs" />
+    <Compile Include="TaxCalculationMaster4Deduction.cs" />
+    <Compile Include="Reimbursement.cs" />
+    <Compile Include="ReimbursementDetail.cs" />
+    <Compile Include="ReimbursementDetailManager.cs" />
+    <Compile Include="ReimbursementManager.cs" />
+    <Compile Include="TaxCalculationMaster.cs" />
+    <Compile Include="TaxCalculationMasterManager.cs" />
+    <Compile Include="MailMasterManager.cs" />
+    <Compile Include="PromotionDeductionDetails.cs" />
+    <Compile Include="PromotionDeductionDetailsManager.cs" />
+    <Compile Include="PromotionEarningDetails.cs" />
+    <Compile Include="PromotionEarningDetailsManager.cs" />
+    <Compile Include="PromotionLeaveDetails.cs" />
+    <Compile Include="PromotionLeaveDetailsManager.cs" />
+    <Compile Include="EmployeePromotionDetails.cs" />
+    <Compile Include="EmployeePromotionDetailsManager.cs" />
+    <Compile Include="EmployeeLeaveDetailMaster1.cs" />
+    <Compile Include="EmployeeLeaveDetailMasterManager1.cs" />
+    <Compile Include="EmployeeQualificationDetails.cs" />
+    <Compile Include="EmployeeQualificationDetailsManager.cs" />
+    <Compile Include="EmployeeMontlyAttendance.cs" />
+    <Compile Include="EmployeeMontlyAttendanceMasterManager.cs" />
+    <Compile Include="DeductionMaster.cs" />
+    <Compile Include="DeductionMasterManager.cs" />
+    <Compile Include="EmployeeAttendanceDetails.cs" />
+    <Compile Include="EmployeeAttendanceDetailsManager.cs" />
+    <Compile Include="HolidayMaster.cs" />
+    <Compile Include="HolidayMasterManager.cs" />
+    <Compile Include="LoaneApplication.cs" />
+    <Compile Include="LoaneApplicationManager.cs" />
+    <Compile Include="LeaveApplication.cs" />
+    <Compile Include="LeaveApplicationManager.cs" />
+    <Compile Include="EmployeeOtherDetails.cs" />
+    <Compile Include="EmployeeOtherDetailsManager.cs" />
+    <Compile Include="EmployeeLeftDetails.cs" />
+    <Compile Include="EmployeeLeftDetailsManager.cs" />
+    <Compile Include="EmployeeLeaveDetails.cs" />
+    <Compile Include="EmployeeLeaveDetailsManager.cs" />
+    <Compile Include="CountryMaster.cs" />
+    <Compile Include="CountryMasterManager.cs" />
+    <Compile Include="EmployeeAttendanceMaster.cs" />
+    <Compile Include="EmployeeAttendanceMasterManager.cs" />
+    <Compile Include="EmployeeDeductionDetails.cs" />
+    <Compile Include="EmployeeDeductionDetailsManager.cs" />
+    <Compile Include="EmployeeEarningDetails.cs" />
+    <Compile Include="EmployeeEarningDetailsManager.cs" />
+    <Compile Include="EmployeeJobDetails.cs" />
+    <Compile Include="EmployeeJobDetailsManager.cs" />
+    <Compile Include="EmployeeMasterDetails.cs" />
+    <Compile Include="EmployeeMasterDetailsManager.cs" />
+    <Compile Include="ForgotPassword.cs" />
+    <Compile Include="ForgotPasswordManager.cs" />
+    <Compile Include="JobMaster.cs" />
+    <Compile Include="JobMasterManager.cs" />
+    <Compile Include="LoginMaster.cs" />
+    <Compile Include="LoginMasterManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportMaster.cs" />
+    <Compile Include="ReportMasterManager.cs" />
+    <Compile Include="RequitmentMaster.cs" />
+    <Compile Include="RequitmentMasterManager.cs" />
+    <Compile Include="StateMaster.cs" />
+    <Compile Include="StateMasterManager.cs" />
+    <Compile Include="TrainingEmployee.cs" />
+    <Compile Include="TrainingEmployeeManager.cs" />
+    <Compile Include="TrainingMaster.cs" />
+    <Compile Include="TrainingMasterManager.cs" />
+    <Compile Include="UnitMaster.cs" />
+    <Compile Include="UnitMasterManager.cs" />
+    <Compile Include="Validation.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
