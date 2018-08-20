@@ -1,0 +1,754 @@
+USE [RSMDBKORESM200613]
+GO
+/****** Object:  StoredProcedure [dbo].[Proc_DeleteAccAssignGrpMaterial]    Script Date: 8/19/2018 9:53:19 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--Begin Procedure
+
+
+ALTER PROCEDURE [dbo].[Proc_DeleteAccAssignGrpMaterial]
+    @AccAssignGroupCode VARCHAR(4),
+    @ClientCode VARCHAR(10),
+    @IsDeleted INT,
+    @Type Char(1) OUTPUT,
+    @Message VARCHAR(255) OUTPUT,
+    @returnvalue VARCHAR(20) OUTPUT
+    
+
+AS
+
+    -- BEGIN TRANSACTION
+
+DECLARE
+        @ErrorFlag TINYINT,
+        @ApnaMsg VARCHAR(255)
+
+    SET @ErrorFlag = 0
+    SET @ApnaMsg = ''
+
+    SET NOCOUNT ON
+
+    --DELETE FROM AccAssignGrpMaterial
+    --    WHERE AccAssignGroupCode = @AccAssignGroupCode
+    Update AccAssignGrpMaterial 
+		SET IsDeleted =@IsDeleted
+    WHERE AccAssignGroupCode=@AccAssignGroupCode
+    AND ClientCode=@ClientCode
+
+    IF (@@ERROR!=0)
+    BEGIN
+        Set @ApnaMsg = 'Error while deleting AccAssignGrpMaterial.'
+        GoTo ErrorHandler
+    End
+
+    GoTo Finish
+
+ErrorHandler:
+    SET @ErrorFlag = 1
+
+Finish:
+    SET NOCOUNT OFF
+
+    IF (@ErrorFlag = 0)
+    BEGIN
+        --Return SUCCESS On Commiting transaction
+        SET @Type = 'S'
+		IF(@IsDeleted = 1)
+		BEGIN
+		    SET @Message = 'Successfully Marked Deleted'
+        END
+        ELSE
+        BEGIN
+			SET @Message = 'Successfully Marked Undeleted'
+        END
+        SET @returnvalue = @AccAssignGroupCode
+    End
+    Else
+    BEGIN
+        --Return FAILED On RollBack transaction
+        SET @Type = 'E'
+        SET @Message = @ApnaMsg
+        SET @returnvalue = @AccAssignGroupCode
+    End
+    --End Procedure
+-------------------------------------------------------------------
+
+	USE [RSMDBKORESM200613]
+GO
+/****** Object:  StoredProcedure [dbo].[Proc_DeleteUserRole]    Script Date: 8/19/2018 9:55:21 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--Begin Procedure
+
+
+ALTER PROCEDURE [dbo].[Proc_DeleteUserRole]
+    @UserName VARCHAR(10), 
+    @RoleCode VARCHAR(6), 
+    @ClientCode VARCHAR(10),
+    @Type Char(1) OUTPUT,
+    @Message VARCHAR(255) OUTPUT,
+    @returnvalue VARCHAR(20) OUTPUT
+
+AS
+
+    -- BEGIN TRANSACTION
+
+DECLARE
+        @ErrorFlag TINYINT,
+        @ApnaMsg VARCHAR(255)
+
+    SET @ErrorFlag = 0
+    SET @ApnaMsg = ''
+
+    SET NOCOUNT ON
+
+    DELETE FROM UserRole
+        WHERE UserName = @UserName
+        AND RoleCode = @RoleCode
+        AND ClientCode = @ClientCode
+
+    IF (@@ERROR!=0)
+    BEGIN
+        Set @ApnaMsg = 'Error while deleting UserRole.'
+        GoTo ErrorHandler
+    End
+
+    GoTo Finish
+
+ErrorHandler:
+    SET @ErrorFlag = 1
+
+Finish:
+    SET NOCOUNT OFF
+
+    IF (@ErrorFlag = 0)
+    BEGIN
+        --Return SUCCESS On Commiting transaction
+        SET @Type = 'S'
+        SET @Message = 'Successfully Deleted'
+        SET @returnvalue = @UserName
+
+    End
+    Else
+    BEGIN
+        --Return FAILED On RollBack transaction
+        SET @Type = 'E'
+        SET @Message = @ApnaMsg
+        SET @returnvalue = @UserName
+
+    End
+    --End Procedure
+------------------------------------------------
+
+USE [RSMDBKORESM200613]
+GO
+/****** Object:  StoredProcedure [dbo].[Proc_DeleteValuationType]    Script Date: 8/19/2018 9:55:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--Begin Procedure
+
+
+ALTER PROCEDURE [dbo].[Proc_DeleteValuationType]
+    @ValTypeCode VARCHAR(6), 
+    @ClientCode VARCHAR(10),
+    @IsDeleted INT,
+    @Type Char(1) OUTPUT,
+    @Message VARCHAR(255) OUTPUT, 
+    @returnvalue VARCHAR(20) OUTPUT
+
+AS
+
+    -- BEGIN TRANSACTION
+
+DECLARE
+        @ErrorFlag TINYINT,
+        @ApnaMsg VARCHAR(255)
+
+    SET @ErrorFlag = 0
+    SET @ApnaMsg = ''
+
+    SET NOCOUNT ON
+
+    --DELETE FROM ValuationType
+    --    WHERE ValTypeCode = @ValTypeCode
+    --    AND ClientCode = @ClientCode
+
+	UPDATE ValuationType
+		SET IsDeleted=@IsDeleted
+    WHERE ValTypeCode = @ValTypeCode
+    AND ClientCode = @ClientCode
+
+    IF (@@ERROR!=0)
+    BEGIN
+        Set @ApnaMsg = 'Error while deleting ValuationType.'
+        GoTo ErrorHandler
+    End
+
+    GoTo Finish
+
+ErrorHandler:
+    SET @ErrorFlag = 1
+
+Finish:
+    SET NOCOUNT OFF
+
+    IF (@ErrorFlag = 0)
+    BEGIN
+        --Return SUCCESS On Commiting transaction
+        SET @Type = 'S'
+        IF(@IsDeleted = 1)
+        BEGIN
+			SET @Message = 'Successfully Marked Deleted'
+		END
+		ELSE 
+		BEGIN
+			SET @Message = 'Successfully Marked Undeleted'
+		END		
+        SET @returnvalue = @ValTypeCode
+    End
+    Else
+    BEGIN
+        --Return FAILED On RollBack transaction
+        SET @Type = 'E'
+        SET @Message = @ApnaMsg
+        SET @returnvalue = @ValTypeCode
+    End
+    --End Procedure
+----------------------------------------------------------------------------------
+
+
+USE [RSMDBKORESM200613]
+GO
+/****** Object:  StoredProcedure [dbo].[Proc_InsertAccAssignGrpMaterial]    Script Date: 8/19/2018 9:57:21 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--Begin Procedure
+
+
+ALTER PROCEDURE [dbo].[Proc_InsertAccAssignGrpMaterial]
+    @AccAssignGroupCode VARCHAR(4), 
+    @AccAssignGroupDesc VARCHAR(40), 
+    @ClientCode VARCHAR(10),
+    @CreatedBy VARCHAR(20),
+    @ModifiedBy VARCHAR(20),
+    @Type Char(1) OUTPUT,
+    @Message VARCHAR(255) OUTPUT,
+    @returnvalue VARCHAR(20) OUTPUT
+
+
+AS
+
+    -- BEGIN TRANSACTION
+
+   DECLARE
+        @ErrorFlag TINYINT,
+        @ApnaMsg VARCHAR(255)
+
+   DECLARE 
+		@CreatedDate DATETIME, 
+		@ModifiedDate DATETIME, 
+		@IsDeleted INT 
+
+    SET @ErrorFlag = 0
+    SET @ApnaMsg = ''
+
+    SET @CreatedDate = GETDATE()
+    SET @ModifiedDate = '1900-01-01'
+    SET @IsDeleted = 0
+
+    SET NOCOUNT ON
+
+InsertRow:
+
+    INSERT INTO AccAssignGrpMaterial(
+        AccAssignGroupCode, 
+        AccAssignGroupDesc, 
+        ClientCode,
+        CreatedBy,
+        ModifiedBy,
+        CreatedDate, 
+        ModifiedDate, 
+        IsDeleted
+    ) VALUES (
+        @AccAssignGroupCode, 
+        @AccAssignGroupDesc, 
+        @ClientCode,
+        @CreatedBy,
+        @ModifiedBy,
+        @CreatedDate, 
+        @ModifiedDate, 
+        @IsDeleted
+    )
+
+    IF (@@ERROR!=0)
+    BEGIN
+        Set @ApnaMsg = 'Error while inserting AccAssignGrpMaterial.'
+        GoTo ErrorHandler
+    End
+
+    GOTO Finish
+
+ErrorHandler:
+    SET @ErrorFlag = 1
+
+Finish:
+    SET NOCOUNT OFF
+
+    IF (@ErrorFlag=0)
+    BEGIN
+
+        --Return SUCCESS On Commiting transaction
+        -- COMMIT TRANSACTION
+        SET @Type = 'S'
+        SET @Message = 'Successfully Saved'
+        SET @returnvalue = @AccAssignGroupCode
+
+      
+    END
+    ELSE
+    BEGIN
+        --Return FAILED On RollBack transaction
+        -- ROLLBACK TRANSACTION
+        SET @Type = 'E'
+        SET @Message = 'Error while Saving'
+        SET @returnvalue = @AccAssignGroupCode
+
+       
+    END
+
+
+--End Procedure
+--------------------------------------------------------------
+
+
+USE [RSMDBKORESM200613]
+GO
+/****** Object:  StoredProcedure [dbo].[Proc_InsertCallLogin]    Script Date: 8/19/2018 9:58:16 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--Begin Procedure
+
+
+ALTER PROCEDURE [dbo].[Proc_InsertCallLogin]
+    @CallCode VARCHAR(18), 
+    @RepairDocTypeCode VARCHAR(4), 
+    @CallDate DATETIME, 
+    @CallAttendedBY VARCHAR(10), 
+    @ReceivingDate DATETIME, 
+    @CallReceivedFrm VARCHAR(20), 
+    @CallRecName VARCHAR(50), 
+    @CallRecAddress1 VARCHAR(50), 
+    @CallRecAddress2 VARCHAR(50), 
+    @CallRecPhone VARCHAR(18), 
+    @CallRecMobile VARCHAR(18), 
+    @CallRecEmail VARCHAR(50), 
+    @CallRecGender VARCHAR(1), 
+    @CallRecCountryCode VARCHAR(2), 
+    @CallRecStateCode VARCHAR(4), 
+    @CallRecCity VARCHAR(50), 
+    @CallStatus VARCHAR(4), 
+    @IsCallClosed INT, 
+    @IsInvGen INT, 
+    @PartnerCode VARCHAR(10), 
+    @ClientCode VARCHAR(10), 
+    @CreatedBy VARCHAR(20), 
+    @ModifiedBy VARCHAR(20), 
+    @Type Char(1) OUTPUT,
+    @Message VARCHAR(255) OUTPUT,
+    @returnvalue VARCHAR(20) OUTPUT
+
+
+AS
+
+    -- BEGIN TRANSACTION
+
+	DECLARE
+        @ErrorFlag TINYINT,
+        @ApnaMsg VARCHAR(255)
+
+    DECLARE
+		@CreatedDate DATETIME, 
+		@ModifiedDate DATETIME, 
+		@IsDeleted INT
+	
+	SET @ErrorFlag = 0
+    SET @ApnaMsg = ''
+    SET @CreatedDate = GETDATE()
+    SET @ModifiedDate = '1900-01-01'
+    SET @IsDeleted = 0
+
+    SET NOCOUNT ON
+
+InsertRow:
+
+    INSERT INTO CallLogin(
+        CallCode, 
+        RepairDocTypeCode, 
+        CallDate, 
+        CallAttendedBY, 
+        ReceivingDate, 
+        CallReceivedFrm, 
+        CallRecName, 
+        CallRecAddress1, 
+        CallRecAddress2, 
+        CallRecPhone, 
+        CallRecMobile, 
+        CallRecEmail, 
+        CallRecGender, 
+        CallRecCountryCode, 
+        CallRecStateCode, 
+        CallRecCity, 
+        CallStatus, 
+        IsCallClosed, 
+        IsInvGen, 
+        PartnerCode, 
+        ClientCode, 
+        CreatedBy, 
+        ModifiedBy, 
+        CreatedDate, 
+        ModifiedDate, 
+        IsDeleted
+    ) VALUES (
+        @CallCode, 
+        @RepairDocTypeCode, 
+        @CallDate, 
+        @CallAttendedBY, 
+        @ReceivingDate, 
+        @CallReceivedFrm, 
+        @CallRecName, 
+        @CallRecAddress1, 
+        @CallRecAddress2, 
+        @CallRecPhone, 
+        @CallRecMobile, 
+        @CallRecEmail, 
+        @CallRecGender, 
+        @CallRecCountryCode, 
+        @CallRecStateCode, 
+        @CallRecCity, 
+        @CallStatus, 
+        @IsCallClosed, 
+        @IsInvGen, 
+        @PartnerCode, 
+        @ClientCode, 
+        @CreatedBy, 
+        @ModifiedBy, 
+        @CreatedDate, 
+        @ModifiedDate, 
+        @IsDeleted
+    )
+
+    IF (@@ERROR!=0)
+    BEGIN
+        Set @ApnaMsg = 'Error while inserting CallLogin.'
+        GoTo ErrorHandler
+    End
+
+    GOTO Finish
+
+ErrorHandler:
+    SET @ErrorFlag = 1
+
+Finish:
+    SET NOCOUNT OFF
+
+    IF (@ErrorFlag=0)
+    BEGIN
+
+        --Return SUCCESS On Commiting transaction
+        -- COMMIT TRANSACTION
+        SET @Type = 'S'
+        SET @Message = 'Successfully Saved'
+        SET @returnvalue = @CallCode
+
+    END
+    ELSE
+    BEGIN
+        --Return FAILED On RollBack transaction
+        -- ROLLBACK TRANSACTION
+        SET @Type = 'E'
+        SET @Message = 'Error while Saving'
+        SET @returnvalue = @CallCode
+    END
+
+
+--End Procedure
+---------------------------------------------------------------------------
+
+USE [RSMDBKORESM200613]
+GO
+/****** Object:  StoredProcedure [dbo].[Proc_UpdateBillingDetail]    Script Date: 8/19/2018 10:01:10 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--Begin Procedure
+
+
+ALTER PROCEDURE [dbo].[Proc_UpdateBillingDetail]
+    @BillingDocCode VARCHAR(18), 
+    @ItemNo INT, 
+    @RefDocumentCode VARCHAR(18), 
+    @RefItemNo VARCHAR(5), 
+    @MaterialCode VARCHAR(18), 
+    @Batch VARCHAR(20), 
+    @PlantCode VARCHAR(6), 
+    @StoreCode VARCHAR(6), 
+    @SalesOrganizationCode CHAR(6),
+    @DistChannelCode VARCHAR(6),
+    @DivisionCode VARCHAR(6),
+    @ShipingPointCode VARCHAR(6),
+    @SalesofficeCode VARCHAR(6),
+    @SalesGroupCode VARCHAR(6),
+    @ValTypeCode VARCHAR(6),
+    @ProfitCenter VARCHAR(6),
+    @MatVolume Numeric,
+    @VolumeUOM VARCHAR(6),
+    @WeightUOM VARCHAR(6),
+    @GrossWeight numeric,
+    @NetWeight Numeric,
+    @PriceDate DateTime,
+    @ItemCategoryCode VARCHAR(6), 
+    @Quantity numeric, 
+    @BillingQty numeric,
+    @NetValue MONEY,
+    @TaxAmt MONEY,
+    @NetPricePerQty MONEY,
+    @UOMCode VARCHAR(6),
+    @SalesUOMCode VARCHAR(6),
+    @COACode VARCHAR(4),
+    @BusinessAreaCode VARCHAR(4),
+    @ProfitSegment VARCHAR(20),
+    @OrginatingDoc VARCHAR(18),
+    @OrginatingItem CHAR(5),
+    @SalesDoc VARCHAR(18),
+    @SalesItem CHAR(5),
+    @MatGroup1Code VARCHAR(6),
+    @ServiceRenderDate DateTime,
+    @CostCenterCode VARCHAR(6),
+    @ClientCode VARCHAR(10), 
+    @CreatedBy VARCHAR(20), 
+	@ModifiedBy VARCHAR(20),   
+    @Type Char(1)OUTPUT,
+    @Message VARCHAR(255) OUTPUT,
+    @returnvalue VARCHAR(20) OUTPUT
+
+
+AS
+
+    -- BEGIN TRANSACTION
+
+  DECLARE
+        @ErrorFlag TINYINT,
+        @ApnaMsg VARCHAR(255)
+    DECLARE 
+		@CreatedDate DATETIME, 
+		@ModifiedDate DATETIME,
+		@IsDeleted INT 
+
+	DECLARE @BillingDocTypeCode CHAR(4)
+	DECLARE @BasedOn tinyint
+	DECLARE @PrevQuantity NUMERIC
+	
+    SET @ErrorFlag = 0
+    SET @ApnaMsg = ''
+    SET @CreatedDate = GETDATE()
+    SET @ModifiedDate = '1900-01-01'
+    SET @IsDeleted = 0
+
+    SET NOCOUNT ON
+    
+     
+    SELECT @BillingDocTypeCode = BillingDocTypeCode FROM BillingMaster
+    WHERE BillingDocCode = @BillingDocCode AND ClientCode = @ClientCode
+	
+	SELECT @PrevQuantity = Quantity FROM BillingDetail
+	WHERE BillingDocCode = @BillingDocCode
+        AND ItemNo = @ItemNo
+        AND ClientCode = @ClientCode
+	
+
+    Update BillingDetail SET
+        RefDocumentCode = @RefDocumentCode, 
+        RefItemNo = @RefItemNo, 
+        MaterialCode = @MaterialCode, 
+        Batch = @Batch, 
+        PlantCode = @PlantCode, 
+        StoreCode = @StoreCode, 
+        SalesOrganizationCode=@SalesOrganizationCode,
+        DistChannelCode=@DistChannelCode,
+        DivisionCode=@DivisionCode,
+        ShipingPointCode=@ShipingPointCode,
+        SalesofficeCode=@SalesofficeCode,
+        SalesGroupCode=@SalesGroupCode,
+        ValTypeCode=@ValTypeCode,
+        ProfitCenter=@ProfitCenter,
+        MatVolume=@MatVolume,
+        VolumeUOM=@VolumeUOM,
+        WeightUOM=@WeightUOM,
+        GrossWeight=@GrossWeight,
+        NetWeight=@NetWeight,
+        PriceDate=@PriceDate,
+        ItemCategoryCode = @ItemCategoryCode, 
+        Quantity = @Quantity, 
+        BillingQty=@BillingQty,
+        NetValue=@NetValue,
+        TaxAmt=@TaxAmt,
+        NetPricePerQty=@NetPricePerQty,
+        UOMCode = @UOMCode, 
+        SalesUOMCode=@SalesUOMCode,
+        COACode=@COACode,
+        BusinessAreaCode=@BusinessAreaCode,
+        ProfitSegment=@ProfitSegment,
+        OrginatingDoc=@OrginatingDoc,
+        OrginatingItem=@OrginatingItem,
+        SalesDoc=@SalesDoc,
+        SalesItem=@SalesItem,
+        MatGroup1Code=@MatGroup1Code,
+        ServiceRenderDate=@ServiceRenderDate,
+        CostCenterCode=@CostCenterCode,
+        ModifiedBy = @ModifiedBy, 
+        ModifiedDate = @ModifiedDate
+        WHERE
+        BillingDocCode = @BillingDocCode
+        AND ItemNo = @ItemNo
+        AND ClientCode = @ClientCode
+
+    SET NOCOUNT OFF
+
+    IF (@@ERROR!=0)
+    BEGIN
+        Set @ApnaMsg = 'Error while updating BillingDetail.'
+        GoTo ErrorHandler
+    End
+
+	DECLARE @IsBilled INT
+    DECLARE @TotalCount INT
+    
+    SELECT @BasedOn = BasedON FROM BillingDocType
+    WHERE BillingDocTypeCode = @BillingDocTypeCode
+    AND ClientCode = @ClientCode
+    
+    IF(@BasedOn = 1)
+    BEGIN
+			
+			UPDATE DeliveryDetail SET
+				BillingQty =  (BillingQty - @PrevQuantity) + @Quantity,	
+				DLStatus  = CASE WHEN BillingQty = ((BillingQty - @PrevQuantity)+ @Quantity) THEN 'COMPLETED' ELSE 'IN-PROCESS' END
+			WHERE DeliveryDocCode = @RefDocumentCode
+			AND	ClientCode = @ClientCode
+			AND ItemNo = @RefItemNo
+			
+			IF (@@ERROR!=0)
+			BEGIN
+				Set @ApnaMsg = 'Error while inserting BillingDetail.'
+				GoTo ErrorHandler
+			End
+			
+			UPDATE SalesOrderDetail SET
+			BillingQty = ((BillingQty - @PrevQuantity) + @Quantity)			
+			WHERE SODocCode = @SalesDoc
+			AND ItemNo = @SalesItem
+			AND ClientCode = @ClientCode
+			
+			IF (@@ERROR!=0)
+		BEGIN
+			Set @ApnaMsg = 'Error while inserting BillingDetail.'
+			GoTo ErrorHandler
+		End
+		
+    END
+    ELSE
+    BEGIN
+		
+		UPDATE SalesOrderDetail SET
+			BillingQty = ((BillingQty - @PrevQuantity) + @Quantity),
+			SOStatus = CASE WHEN BillingQty = ((BillingQty - @PrevQuantity) + @Quantity) THEN 'COMPLETED' ELSE 'IN-PROCESS' END
+		WHERE SODocCode = @RefDocumentCode
+		AND ItemNo = @RefItemNo
+		AND ClientCode = @ClientCode
+		
+		IF (@@ERROR!=0)
+		BEGIN
+			Set @ApnaMsg = 'Error while inserting BillingDetail.'
+			GoTo ErrorHandler
+		End
+			 
+		SELECT @TotalCount = COUNT(*) FROM SalesOrderDetail
+		WHERE SODocCode = @RefDocumentCode AND ClientCode = @ClientCode AND (OrderQuantity - BillingQty) > 0
+		
+		IF(@TotalCount > 0)
+		BEGIN
+		
+			UPDATE SalesOrder SET
+			  SOStatus = 'IN-PROCESS'
+			WHERE  SODocCode = @RefDocumentCode AND ClientCode = @ClientCode
+			
+			IF (@@ERROR!=0)
+			BEGIN
+				Set @ApnaMsg = 'Error while updating SalesOrder .'
+				GoTo ErrorHandler
+			End	 
+			
+		END
+		ELSE
+		BEGIN
+		
+				UPDATE SalesOrder SET
+					SOStatus = 'COMPLETED'
+				WHERE  SODocCode = @RefDocumentCode AND ClientCode = @ClientCode
+			
+			IF (@@ERROR!=0)
+			BEGIN
+				Set @ApnaMsg = 'Error while updating SalesOrder .'
+				GoTo ErrorHandler
+			End
+		END
+		
+    
+    END
+
+
+
+    GOTO Finish
+
+ErrorHandler:
+    SET @ErrorFlag = 1
+
+Finish:
+    SET NOCOUNT OFF
+
+    IF (@ErrorFlag=0)
+
+    BEGIN
+
+        --Return SUCCESS On Commiting transaction
+        -- COMMIT TRANSACTION
+        SET @Type = 'S'
+        SET @Message = 'Successfully Updated'
+        SET @returnvalue = @BillingDocCode
+
+    END
+    ELSE
+    BEGIN
+        --Return FAILED On RollBack transaction
+        -- ROLLBACK TRANSACTION
+        SET @Type = 'E'
+        SET @Message = 'Error while Updating'
+        SET @returnvalue = @BillingDocCode
+    END
+
+
+--End Procedure
+--------------------------------------------------------------------------
+
+
